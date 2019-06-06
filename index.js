@@ -133,13 +133,11 @@ export const ContextProvider = ({ providedName, providedState, providedActions, 
 
   const loadMethods = (state, action) => {
     const newActions = {};
-    for (const x in action) {
-        // if(action !== undefined) {
-        if(Object.prototype.hasOwnProperty.call(action, x)) {
-            // newActions[Object.values(x)] = action[x].bind(this);
-            newActions[x] = action[x].bind(this);
-        }
-    }
+    
+    Object.keys(action).forEach((key) => {
+        newActions[key] = action[key];
+    });
+      
     setContextProviderState(state);
     setContextProviderActions(newActions);
 
